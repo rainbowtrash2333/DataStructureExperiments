@@ -14,15 +14,14 @@
 
 //窗口大小
 #define high 13
-//默认保留位数
-#define keep_n 3
+
 //全局变量 
 complex_num num1;
 complex_num num2;
 complex_num result;
+bool stop;
 char  symbol;
-bool isPoint;//是否输入小数点
-bool isSymbol;//是否输入算术符
+
 //光标移动到( x, y ) 
 void gotoxy(int x, int y)
 {
@@ -49,6 +48,7 @@ void startup() {
 	num2.b = 0;
 	result.a = 0;
 	result.b = 0;
+	stop = false;
 }
 
 //输入复数，返回一个字符串
@@ -76,12 +76,11 @@ void readme() {
 	printf("用法须知：\n");
 	printf("1.必须吧输入法切换为英文，不然BUG跳到您怀疑人生；\n");
 	printf("2.如果出现窗口跳动的情况，拉高控制台窗口的高度；\n");
-	printf("3.直接在键盘上输入数值符号；自持的符号为/[0-9]|[+-=\\*\\/\\.]|(enter)|(space)/\n");
-	printf("4.空格键：输入虚部\n");
-	printf("5.小数点键：输入小数部分\n");
-	printf("6.运算键：输入运算符和下一个复数\n");
-	printf("7.Copyright  Twikura@gmail.com\n");
+	printf("3.键盘输入复数1的实部，空格后输入虚部，然后输入+-*/，接着即可输入复数2，最后回车或=输出结果\n");
+	printf("4.支持的符号为/[0-9]|[+-=\\*\\/\\.]|(enter)|(space)/\n");
+	printf("5.Copyright  Twikura@gmail.com\n");
 }
+
 //打印图形 
 void show() {
 	gotoxy(0, 0);
@@ -122,7 +121,6 @@ void show() {
 		printf("\n");
 	}
 	readme();
-	printf("\n");
 }
 
 //接受用户输入
@@ -221,17 +219,20 @@ void update() {
 		default:
 			break;
 		}
+		stop = true;
 	}
 }
 
 int main() {
 	startup();
-
-	while (true)
+	readme();
+	printf("任意键继续");
+	getchar();
+	system("cls");
+	while (!stop)
 	{
-		show();
-		//hit();
 		update();
+		show();
 	}
 	return 0;
 }
