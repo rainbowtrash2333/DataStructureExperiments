@@ -42,7 +42,6 @@ void startup() {
 	stop = false;
 }
 
-
 //输入复数，返回一个字符串
 char* toString(complex_num num) {
 	static char s[100];
@@ -121,7 +120,7 @@ void show() {
 			printf("结果：");
 			break;
 		case 11:
-			printf("%s", toString(result));
+			printf("%s                      ", toString(result));
 			break;
 		default:
 			break;
@@ -195,7 +194,6 @@ bool hit() {
 				break;
 			}
 		}
-
 
 		else if (input == '.') {
 			isPoint = true;
